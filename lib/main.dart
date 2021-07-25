@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import './widgets/myhomepage.dart';
+import './providers/request_provider.dart';
+
+import './screens/recruiterpage.dart';
+import './screens/homepage.dart';
+import './screens/studentlogin.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,9 +16,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'InterViewApp',
-      home: MyHomePage(),
+    return ChangeNotifierProvider(
+      create: (context) => StudentRequests(),
+      child: MaterialApp(
+        title: 'InterviewApp',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const HomePage(),
+        routes: {
+          StudentPage.routeName: (ctx) => const StudentPage(),
+          RecruiterPage.routeName: (ctx) => const RecruiterPage(),
+        },
+      ),
     );
   }
 }
